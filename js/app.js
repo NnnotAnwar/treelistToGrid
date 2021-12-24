@@ -43,12 +43,18 @@ $(function () {
                 { field: 'Extension', title: 'Ext', format: '{0:#}' }
             ],
             dataBound: function (e) {
-                btn.disabled = false;
                 let DS = e.sender.dataSource.data()
                 dataPlace.textContent = js_beautify(JSON.stringify(DS.toJSON()));
                 for (let i = 0; i < DS.length; i++) {
                     let row = DS[i]
-                    if (row.hasChildren) { allExpandedParent.push(row) } else { allNotExpanded.push(row) }
+                    if (row.hasChildren) {
+                        allExpandedParent.push(row)
+                    } else {
+                        allNotExpanded.push(row)
+                    }
+                    if (row.parentId) {
+                        btn.disabled = false;
+                    }
                 }
                 notExpanded = [];
                 for (let i in e.sender.columns) {
@@ -105,10 +111,6 @@ $(function () {
             }
             expandedParent = allExpandedParent;
             allNotExpanded = allNotExpanded;
-        }
-
-        if (newDS.length === 1) {
-            expandedParent = [];
         }
         for (let item of expandedParent) {
             expandedRowIds.push(item.id);
