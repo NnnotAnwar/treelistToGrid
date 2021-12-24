@@ -15,7 +15,8 @@ $(function () {
     let dataSource = new kendo.data.TreeListDataSource({
         transport: {
             read: {
-                url: crudServiceBaseUrl + '/EmployeeDirectory/All',
+                url: crudServiceBaseUrl + '/EmployeeDirectory',
+                // url: crudServiceBaseUrl + '/EmployeeDirectory/All',
                 dataType: 'jsonp'
             }
         },
@@ -27,7 +28,7 @@ $(function () {
                     EmployeeId: { type: 'number', nullable: false },
                     ReportsTo: { field: 'ReportsTo', nullable: true }
                 },
-                expanded: true
+                // expanded: true
             },
         }
     });
